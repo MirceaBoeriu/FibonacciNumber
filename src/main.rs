@@ -2,66 +2,26 @@ use std::cmp::Ordering;
 use std::ffi::c_int;
 use std::io;
 
-fn  calculateFibonacciNumber(n:i32) -> Vec<i64>{
-    let mut vResult:Vec<i64>=Vec::new();
+fn  calculateFibonacciNumber(n:usize) -> Vec<u64>{
+    let mut vResult:Vec<u64>=Vec::new();
     if n < 1 {
         println!("{} should be >0" ,n);
-    } else {
+    } else if n==1 {vResult.push(0)}
+    else if n >=2{
+        vResult.push(0);
+        vResult.push(1);
         let mut sum = 0;
-        let mut prev2 = 0;
-        let mut prev1 = 1;
-       // print!("{sum}");
-    vResult.push(sum);
-        for i in 0..n{
-
-                sum = prev1 + prev2;
-                prev2 = prev1;
-                prev1 = sum;
-                vResult.push(sum);
-            //print!(", {sum}");
-            }
+      for i in 1..n-1{
+            sum = &vResult[i]+&vResult[i-1];
+            vResult.push(sum);
+        }
     }
     return vResult;
-
   }
 
-/*fn  calculateFibonacciNumber(n:i32)-> Vec<u64> {
-    let mut vResult : Vec<u64>=(0..=1).collect();
-
-
-
-       match n {
-       // Match several values
-         1=> vResult.pop(),
-        // Handle the rest of cases
-       _ => {
-           let mut sum = 0;
-           let mut prev2 = 0;
-           let mut prev1 = 1;
-           for _i in 0..=n {
-               print!("{} ",_i);
-               /*sum = prev1 + prev2;
-               prev2 = prev1;
-               prev1 = sum;*/
-               //vResult.push(sum);
-           }
-
-
-
-                    },
-
-         // TODO ^ Try commenting out this catch-all arm
-     }
-
-return vResult;
-}*/
-
 fn main() {
-    let n :i32=50;
-  //  calculateFibonacciNumber(n);
-
-   let fibo=calculateFibonacciNumber(n);
- //println!("{}",fibo[1]);
+    let n :usize=10;
+    let fibo=calculateFibonacciNumber(n);
     for x in fibo.iter() {
         print!("{} ", x);
     }
